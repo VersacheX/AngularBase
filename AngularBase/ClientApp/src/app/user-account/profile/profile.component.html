@@ -1,0 +1,80 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>Profile</h1>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <input type="text" id="Username" class="form-control" placeholder="Username" [(ngModel)]="User.Username" disabled />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <input type="text" id="FirstName" class="form-control" placeholder="FirstName" [(ngModel)]="User.FirstName" />
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <input type="text" id="LastName" class="form-control" placeholder="LastName" [(ngModel)]="User.LastName" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="form-group">
+          <input type="text" id="Email" class="form-control" placeholder="Email" [(ngModel)]="User.Email" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="form-group">
+          <input type="text" id="Email" class="form-control" placeholder="Email" [(ngModel)]="User.Email" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <select [(ngModel)]="User.SecurityQuestionType1FK">
+            <option value="0">--None--</option>
+            <option *ngFor="let securityQuestion of SecurityQuestionTypes" value={{securityQuestion.SecurityQuestionTypePK}}>
+              {{securityQuestion.Description}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <input type="text" id="SecurityQuestionAnswer1" class="form-control" placeholder="SecurityQuestionAnswer1" [(ngModel)]="User.SecurityQuestionAnswer1" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <select [(ngModel)]="User.SecurityQuestionType2FK">
+            <option value="0">--None--</option>
+            <option *ngFor="let securityQuestion of SecurityQuestionTypes" value={{securityQuestion.SecurityQuestionTypePK}}>
+              {{securityQuestion.Description}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <input type="text" id="SecurityQuestionAnswer2" class="form-control" placeholder="SecurityQuestionAnswer2" [(ngModel)]="User.SecurityQuestionAnswer2" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <button class="btn btn-primary" (click)="Save()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

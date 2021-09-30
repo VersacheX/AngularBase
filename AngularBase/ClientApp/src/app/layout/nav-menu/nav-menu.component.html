@@ -1,0 +1,55 @@
+
+<nav id="sidebar" [ngClass]="SideBarOpen ? 'show' : 'hide'" *ngIf="_authenticationService.IsLoggedIn">
+  <div id="sidebar-toggler" (click)="ToggleSideBar()">
+    <i class="fas fa-bars"></i>
+  </div>
+  <div class="sidebar-header">
+    <!--<h3>Menu</h3>-->
+  </div>
+  <ul class="list-unstyled components">
+    <li [ngClass]="this._currentRouterLocation == '' ? 'active' : ''">
+        <a class="nav-link" [routerLink]="['/']">
+          <i class="fa fa-home"></i>
+          <span class="col-auto">Home</span>
+        </a>
+    </li>
+    <li>
+      <a class="nav-link" style="cursor: pointer;" (click)="ToggleSubMenuItem('pageSubmenu')">
+        <i class="fa fa-fax"></i>
+        <span class="col-auto">Pages</span>
+      </a>
+      <ul class="collapse list-unstyled" id="pageSubmenu">
+        <li>
+          <a class="nav-link" [routerLink]="['/']">
+            <i class="fa fa-phone"></i>
+            <span class="col-auto">Page 1</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" [routerLink]="['/']">
+            <i class="fa fa-birthday-cake"></i>
+            <span class="col-auto">Page 2</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" [routerLink]="['/']">
+            <i class="fa fa-bank"></i>
+            <span class="col-auto">Page 3</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li [ngClass]="this._currentRouterLocation.indexOf('counter') == 0 ? 'active' : ''">
+      <a class="nav-link" [routerLink]="['/counter']">
+        <i class="fa fa-calculator"></i>
+        <span class="col-auto">Counter</span>
+      </a>
+    </li>
+    <li [ngClass]="this._currentRouterLocation.indexOf('fetch-data') == 0 ? 'active' : ''">
+      <a class="nav-link" [routerLink]="['/fetch-data']">
+        <i class="fa fa-bluetooth"></i>
+        <span class="col-auto">Fetch data</span>
+      </a>
+    </li>
+  </ul>
+</nav>
