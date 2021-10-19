@@ -14,7 +14,7 @@ export class CreateAccountComponent extends DetailComponent implements OnInit  {
               public Route: ActivatedRoute) {
     super(Route);
 
-    this.User = new User;
+    this.User = new User();
   }
 
   public get User(): User {
@@ -33,9 +33,9 @@ export class CreateAccountComponent extends DetailComponent implements OnInit  {
   }
 
   public LoadControlsData() {
-    var criteria = { };
+    let criteria = { };
 
-    var dataRequest: DataRequest = new DataRequest();
+    let dataRequest: DataRequest = new DataRequest();
     dataRequest.Procedure = "GetSecurityQuestionTypes";
     dataRequest.Parameters = JSON.stringify(criteria);
 
@@ -74,7 +74,7 @@ export class CreateAccountComponent extends DetailComponent implements OnInit  {
         result => {
           //check if return type is dataerror
           //create dataerror dataobject for internal validation error message
-          var resultSet: User[] = result as User[];
+          let resultSet: User[] = result as User[];
 
           if (resultSet && resultSet.length > 0) {
             this.User = resultSet[0];

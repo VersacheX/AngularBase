@@ -35,7 +35,7 @@ var CreateAccountComponent = /** @class */ (function (_super) {
         var _this = _super.call(this, Route) || this;
         _this._dataService = _dataService;
         _this.Route = Route;
-        _this.User = new _dataObjects_1.User;
+        _this.User = new _dataObjects_1.User();
         return _this;
     }
     Object.defineProperty(CreateAccountComponent.prototype, "User", {

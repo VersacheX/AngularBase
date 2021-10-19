@@ -15,7 +15,8 @@ namespace AngularBase.Application.Services
     {
         Task SendEmailAsync(MailRequest mailRequest);
         string GetResetPasswordMailBody(int userPK, string username, string newPassword);
-        string GetActivateAccountMailBody(int userId, string username, string activationCode);
+        string GetActivateAccountMailBody(string username, string activationCode);
+        string GetAccountActivatedMailBody(string username);
     }
 
     public class EmailService : IEmailService
@@ -38,7 +39,7 @@ namespace AngularBase.Application.Services
             return String.Format(emailBody, username, newPassword);
         }
 
-        public string GetActivateAccountMailBody(int userId, string username, string activationCode)
+        public string GetActivateAccountMailBody(string username, string activationCode)
         {
             string emailBody = @"Welcome to AngularBase, {0}<BR/>
                                  <BR/>
@@ -48,6 +49,18 @@ namespace AngularBase.Application.Services
                                 ";
 
             return String.Format(emailBody, username, ApplicationSettings.Domain, activationCode);
+        }
+
+        public string GetAccountActivatedMailBody(string username)
+        {
+            string emailBody = @"Your account has been activated, {0}<BR/>
+                                 <BR/>
+                                 You can now login<BR/>
+                                 <BR/>
+                                 {1}/login
+                                ";
+
+            return String.Format(emailBody, username, ApplicationSettings.Domain);
         }
 
         public async Task SendEmailAsync(MailRequest mailRequest)

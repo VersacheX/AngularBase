@@ -37,9 +37,9 @@ export class ProfileComponent extends DetailComponent implements OnInit  {
   }
 
   public LoadControlsData() {
-    var criteria = { };
+    let criteria = { };
 
-    var dataRequest: DataRequest = new DataRequest();
+    let dataRequest: DataRequest = new DataRequest();
     dataRequest.Procedure = "GetSecurityQuestionTypes";
     dataRequest.Parameters = JSON.stringify(criteria);
 
@@ -54,16 +54,16 @@ export class ProfileComponent extends DetailComponent implements OnInit  {
   }
 
   public GetData() {
-    var criteria = { "UserPK": this.BusinessObjectId };
+    let criteria = { "UserPK": this.BusinessObjectId };
 
-    var dataRequest: DataRequest = new DataRequest();
+    let dataRequest: DataRequest = new DataRequest();
     dataRequest.Procedure = "GetUsers";
     dataRequest.Parameters = JSON.stringify(criteria);
 
     this._dataService.ExecuteRequest(dataRequest)
       .subscribe(
         result => {
-          var resultSet: User[] = result as User[];
+          let resultSet: User[] = result as User[];
 
           if (resultSet && resultSet.length > 0) {
             this.User = resultSet[0];
@@ -79,14 +79,14 @@ export class ProfileComponent extends DetailComponent implements OnInit  {
   }
 
   public SaveData() {
-    var dataRequest: DataRequest = new DataRequest();
+    let dataRequest: DataRequest = new DataRequest();
     dataRequest.Procedure = "SaveUser";
     dataRequest.Parameters = JSON.stringify(this.User);
 
     this._dataService.ExecuteRequest(dataRequest)
       .subscribe(
         result => {
-          var resultSet: User[] = result as User[];
+          let resultSet: User[] = result as User[];
         },
         error => {
           console.error(error)

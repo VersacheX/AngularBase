@@ -47,6 +47,16 @@ a:focus {
   margin-left: 250px;
 }
 
+#main-panel.loggedOutPage {
+  width: calc(100%);
+  min-height: 100vh;
+  transition: all 0.3s;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-left: 0px;
+}
+
 #content {
   padding: 20px;
 }

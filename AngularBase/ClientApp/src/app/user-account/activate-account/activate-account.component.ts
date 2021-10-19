@@ -1,9 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { DataRequest, User } from '../../_dataObjects';
+import { User } from '../../_dataObjects';
 import { DataService } from '../../_services/data-service';
-import { DetailComponent } from '../../_controls/detail-component.component';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-activate-account',
@@ -11,7 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ActivateAccountComponent implements OnInit  {
   constructor(@Inject(DataService) private _dataService: DataService,
-    public Route: ActivatedRoute) {
+              public Route: ActivatedRoute,
+              private _router: Router,  ) {
 
     this.User = new User;
   }
@@ -20,5 +20,25 @@ export class ActivateAccountComponent implements OnInit  {
 
   ngOnInit() {
     this.User.ActivationCode = this.Route.snapshot.paramMap.get('activationcode');
+
+    this._dataService.ActivateAccount(this.User)
+      .subscribe(
+        result => {
+          //check if return type is dataerror
+          //create dataerror dataobject for internal validation error message
+          let resultSet: User[] = result as User[];
+
+          if (resultSet && resultSet.length > 0) {
+            this.User = resultSet[0];
+
+            //display success message
+            this._router.navigate(['/login/']);
+          }
+        },
+        error => {
+          //display fail message         
+          this._router.navigate(['/login/']);
+          console.error(error)
+        });
   }
 }

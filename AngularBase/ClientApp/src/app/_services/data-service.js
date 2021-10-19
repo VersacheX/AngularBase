@@ -47,6 +47,12 @@ var DataService = /** @class */ (function () {
             return user;
         }));
     };
+    DataService.prototype.ActivateAccount = function (userInfo) {
+        return this._http.post(this._baseUrl + 'Account/ActivateAccount', userInfo)
+            .pipe(operators_1.map(function (user) {
+            return user;
+        }));
+    };
     DataService.prototype.GetUserSecurityQuestions = function (userInfo) {
         return this._http.post(this._baseUrl + 'Account/GetSecurityQuestions', userInfo)
             .pipe(operators_1.map(function (user) {

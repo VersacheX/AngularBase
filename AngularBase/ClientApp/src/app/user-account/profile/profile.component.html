@@ -32,8 +32,8 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <select [(ngModel)]="User.SecurityQuestionType1FK">
-            <option value="0">--None--</option>
+          <select class="form-select"  [(ngModel)]="User.SecurityQuestionType1FK">
+            <option [value]="null">--None--</option>
             <option *ngFor="let securityQuestion of SecurityQuestionTypes" value={{securityQuestion.SecurityQuestionTypePK}}>
               {{securityQuestion.Description}}
             </option>
@@ -49,8 +49,8 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <select [(ngModel)]="User.SecurityQuestionType2FK">
-            <option value="0">--None--</option>
+          <select class="form-select"  [(ngModel)]="User.SecurityQuestionType2FK">
+            <option [value]="null">--None--</option>
             <option *ngFor="let securityQuestion of SecurityQuestionTypes" value={{securityQuestion.SecurityQuestionTypePK}}>
               {{securityQuestion.Description}}
             </option>

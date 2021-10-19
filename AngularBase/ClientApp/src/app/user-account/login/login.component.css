@@ -1,8 +1,17 @@
-.card {
-    margin: 0 auto !important;
+.container {
+  height: 100%;
+  align-content: center;
 }
 
-@media (min-width: 640px) {
+.card {
+  height: 370px;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 480px;
+  background-color: rgba(0,0,0,0.5) !important;
+}
+
+/*@media (min-width: 640px) {
   .login-card {
       width: 480px;
   }
@@ -12,4 +21,4 @@
   .login-card {
     width: 100%;
   }
-}
+}*/

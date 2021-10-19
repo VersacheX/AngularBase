@@ -48,6 +48,13 @@ export class DataService {
       }));
   }
 
+  ActivateAccount(userInfo: User) {
+    return this._http.post<User[]>(this._baseUrl + 'Account/ActivateAccount', userInfo)
+      .pipe(map(user => {
+        return user;
+      }));
+  }
+
   GetUserSecurityQuestions(userInfo: User) {
     return this._http.post<User[]>(this._baseUrl + 'Account/GetSecurityQuestions', userInfo)
       .pipe(map(user => {

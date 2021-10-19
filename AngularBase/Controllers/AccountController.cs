@@ -40,6 +40,54 @@ namespace AngularBase.Controllers
         }
 
         [AllowAnonymous]
+        public async Task<IActionResult> ActivateAccount([FromBody] User model)
+        {
+            string result = Dao.ExecuteProcedure(0, "ActivateAccount", JsonSerializer.Serialize<User>(model));
+
+            //if (result == null)
+            //    return BadRequest(new { message = "Username or password is incorrect" });
+
+            // Send off an email or some shit on success -- Password has been changed.  If you did not request this password change blah blah 
+
+
+            User user = null;
+
+            try
+            {
+                User[] users = JsonSerializer.Deserialize<User[]>(result);
+
+                if (users != null && users.Length > 0)
+                    user = users[0];
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            if (user == null)
+            {
+                return BadRequest(new { message = "Problems activating account" });
+            }
+
+            //Send e-mail here
+            MailRequest request = new();
+            request.ToEmail = user.Email;
+            request.Subject = "Account Activated";
+            request.Body = this._emailService.GetAccountActivatedMailBody(user.Username);
+
+            try
+            {
+                await this._emailService.SendEmailAsync(request);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
+            return Ok(result);
+        }
+
+        [AllowAnonymous]
         public async Task<IActionResult> CreateAccount([FromBody] User model)
         {
             model.Password = _userService.HashPassword(model.Password);
@@ -66,7 +114,7 @@ namespace AngularBase.Controllers
             MailRequest request = new();
             request.ToEmail = user.Email;
             request.Subject = "Activate Account";
-            request.Body = this._emailService.GetActivateAccountMailBody(user.UserPK, user.Username, user.ActivationCode);
+            request.Body = this._emailService.GetActivateAccountMailBody(user.Username, user.ActivationCode);
 
             try
             {

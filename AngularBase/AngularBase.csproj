@@ -75,9 +75,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="ClientApp\src\app\_services\authentication-service - Copy.js">
-      <DependentUpon>authentication-service.js</DependentUpon>
-    </None>
     <None Update="ClientApp\src\app\_services\authentication-service - Copy.js.map">
       <DependentUpon>authentication-service.js.map</DependentUpon>
     </None>

@@ -14,13 +14,30 @@ var core_1 = require("@angular/core");
 var _dataObjects_1 = require("../../_dataObjects");
 var data_service_1 = require("../../_services/data-service");
 var ActivateAccountComponent = /** @class */ (function () {
-    function ActivateAccountComponent(_dataService, Route) {
+    function ActivateAccountComponent(_dataService, Route, _router) {
         this._dataService = _dataService;
         this.Route = Route;
+        this._router = _router;
         this.User = new _dataObjects_1.User;
     }
     ActivateAccountComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.User.ActivationCode = this.Route.snapshot.paramMap.get('activationcode');
+        this._dataService.ActivateAccount(this.User)
+            .subscribe(function (result) {
+            //check if return type is dataerror
+            //create dataerror dataobject for internal validation error message
+            var resultSet = result;
+            if (resultSet && resultSet.length > 0) {
+                _this.User = resultSet[0];
+                //display success message
+                _this._router.navigate(['/login/']);
+            }
+        }, function (error) {
+            //display fail message         
+            _this._router.navigate(['/login/']);
+            console.error(error);
+        });
     };
     ActivateAccountComponent = __decorate([
         core_1.Component({

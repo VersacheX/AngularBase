@@ -44,7 +44,7 @@ export class NavMenuComponent implements OnInit {
   }
 
   ToggleSubMenuItem(submenuItemName: string) {
-    var element = document.getElementById(submenuItemName);
+    let element = document.getElementById(submenuItemName);
 
     if (element.classList.contains('collapse'))
       element.classList.remove('collapse');
