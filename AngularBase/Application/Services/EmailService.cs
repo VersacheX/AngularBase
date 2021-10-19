@@ -15,6 +15,7 @@ namespace AngularBase.Application.Services
     {
         Task SendEmailAsync(MailRequest mailRequest);
         string GetResetPasswordMailBody(int userPK, string username, string newPassword);
+        string GetActivateAccountMailBody(int userId, string username, string activationCode);
     }
 
     public class EmailService : IEmailService
@@ -37,16 +38,16 @@ namespace AngularBase.Application.Services
             return String.Format(emailBody, username, newPassword);
         }
 
-        public string GetActivateAccountMailBody(string baseUrl, string username, string activationCode)
+        public string GetActivateAccountMailBody(int userId, string username, string activationCode)
         {
             string emailBody = @"Welcome to AngularBase, {0}<BR/>
                                  <BR/>
                                  In order to complete your registration, please follow the link below<BR/>
                                  <BR/>
-                                 {1}/ActivateAccount/{2}
+                                 {1}/activate-account/{2}
                                 ";
 
-            return String.Format(emailBody, username, baseUrl, activationCode);
+            return String.Format(emailBody, username, ApplicationSettings.Domain, activationCode);
         }
 
         public async Task SendEmailAsync(MailRequest mailRequest)

@@ -23,6 +23,12 @@ var DataService = /** @class */ (function () {
             return data;
         }));
     };
+    DataService.prototype.NoAuthExecuteRequest = function (dataRequest) {
+        return this._http.post(this._baseUrl + 'Execute/NoAuthExecuteProcedure', dataRequest)
+            .pipe(operators_1.map(function (data) {
+            return data;
+        }));
+    };
     DataService.prototype.ChangePassword = function (userInfo) {
         return this._http.post(this._baseUrl + 'Account/ChangePassword', userInfo)
             .pipe(operators_1.map(function (user) {
@@ -31,6 +37,12 @@ var DataService = /** @class */ (function () {
     };
     DataService.prototype.ResetPassword = function (userInfo) {
         return this._http.post(this._baseUrl + 'Account/ResetPassword', userInfo)
+            .pipe(operators_1.map(function (user) {
+            return user;
+        }));
+    };
+    DataService.prototype.CreateAccount = function (userInfo) {
+        return this._http.post(this._baseUrl + 'Account/CreateAccount', userInfo)
             .pipe(operators_1.map(function (user) {
             return user;
         }));

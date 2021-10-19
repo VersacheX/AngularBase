@@ -51,14 +51,13 @@ namespace AngularBase.Application
             return result;
         }
 
-        //SET USERID TO REQUESTCONTEXT
         public static string ExecuteProcedure(int userId, string procedure, string parameter)
         {
             string result = string.Empty;
             //Check procedure for space and ;. ??.remove space and ;
             procedure = procedure.Replace(" ", "").Replace(";", "").Replace(",", "");
 
-            string connectionString = ApplicationSettings.ConnectionString;            //TODO ApplicationSettings.ConnectionString
+            string connectionString = ApplicationSettings.ConnectionString;
 
             using (SqlConnection connection = new(connectionString))
             {
@@ -69,6 +68,49 @@ namespace AngularBase.Application
 
                     using SqlCommand command = new(sql, connection);
                     command.Parameters.Add(new SqlParameter("userId", userId));
+                    command.Parameters.Add(new SqlParameter("parameter", parameter));//.Replace ("'", "''");
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    string rowJson = "";
+
+                    // Call Read before accessing data.
+                    while (reader.Read())
+                    {
+                        rowJson = ReadSingleRow((IDataRecord)reader);
+                    }
+
+                    result = rowJson;
+                }
+                catch (Exception ex)
+                {
+                    //Console.WriteLine("Something went wrong");
+                    dynamic returnError = new ExpandoObject();
+                    returnError.ExceptionMessage = ex.Message;
+                    //Log the error to errorLogFile
+
+                    return null;
+                }
+            }
+
+            return result;
+        }
+
+        public static string NoAuthExecuteProcedure(string procedure, string parameter)
+        {
+            string result = string.Empty;
+            //Check procedure for space and ;. ??.remove space and ;
+            procedure = procedure.Replace(" ", "").Replace(";", "").Replace(",", "");
+
+            string connectionString = ApplicationSettings.ConnectionString;
+
+            using (SqlConnection connection = new(connectionString))
+            {
+                connection.Open();
+                try
+                {
+                    string sql = "EXEC no_auth_" + procedure + " @parameter;";
+
+                    using SqlCommand command = new(sql, connection);
                     command.Parameters.Add(new SqlParameter("parameter", parameter));//.Replace ("'", "''");
 
                     SqlDataReader reader = command.ExecuteReader();

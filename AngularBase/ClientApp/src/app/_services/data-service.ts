@@ -20,6 +20,13 @@ export class DataService {
       }));
   }
 
+  NoAuthExecuteRequest(dataRequest: DataRequest) {
+    return this._http.post<any>(this._baseUrl + 'Execute/NoAuthExecuteProcedure', dataRequest)
+      .pipe(map(data => {
+        return data;
+      }));
+  }
+
   ChangePassword(userInfo: User) {
     return this._http.post<User[]>(this._baseUrl + 'Account/ChangePassword', userInfo)
       .pipe(map(user => {
@@ -29,6 +36,13 @@ export class DataService {
 
   ResetPassword(userInfo: User) {
     return this._http.post<User[]>(this._baseUrl + 'Account/ResetPassword', userInfo)
+      .pipe(map(user => {
+        return user;
+      }));
+  }
+
+  CreateAccount(userInfo: User) {
+    return this._http.post<User[]>(this._baseUrl + 'Account/CreateAccount', userInfo)
       .pipe(map(user => {
         return user;
       }));

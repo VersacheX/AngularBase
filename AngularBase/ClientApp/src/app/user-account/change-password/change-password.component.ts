@@ -54,7 +54,7 @@ export class ChangePasswordComponent extends DetailComponent implements OnInit  
         });
   }
 
-  public ValidateData(): boolean {
+  public ValidateSaveData(): boolean {
     if (this.User.NewPassword != this.User.ConfirmPassword) {
       //Display error Passwords do not match
       //focus on NewPassword

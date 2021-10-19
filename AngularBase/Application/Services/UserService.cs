@@ -2,13 +2,9 @@
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AngularBase.Application.Services
 {
@@ -17,6 +13,7 @@ namespace AngularBase.Application.Services
         AuthenticateResponse Authenticate(LoginInformation model);
         string HashPassword(string password);
         string GenerateRandomPassword();
+        string GenerateActivationCode();
     }
 
     public class UserService : IUserService
@@ -71,21 +68,29 @@ namespace AngularBase.Application.Services
 
         public string GenerateRandomPassword()
         {
-            int length = 12;
+            return GenerateRandomString(12, true);
+        }
 
+        public string GenerateActivationCode()
+        {
+            return GenerateRandomString(32, false);
+        }
+
+        private string GenerateRandomString(int length, bool allowNonAlphaNumeric)
+        {
+            StringBuilder password = new();
+            Random random = new();
             bool nonAlphanumeric = true;
             bool digit = true;
             bool lowercase = true;
             bool uppercase = true;
 
-            StringBuilder password = new();
-            Random random = new();
-
             while (password.Length < length)
             {
                 char c = (char)random.Next(32, 126);
 
-                password.Append(c);
+                if(allowNonAlphaNumeric || (!allowNonAlphaNumeric && char.IsLetterOrDigit(c)))
+                    password.Append(c);
 
                 if (char.IsDigit(c))
                     digit = false;
@@ -97,7 +102,7 @@ namespace AngularBase.Application.Services
                     nonAlphanumeric = false;
             }
 
-            if (nonAlphanumeric)
+            if (nonAlphanumeric && allowNonAlphaNumeric)
                 password.Append((char)random.Next(33, 48));
             if (digit)
                 password.Append((char)random.Next(48, 58));

@@ -24,23 +24,21 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ChangePasswordComponent = void 0;
+exports.CreateAccountComponent = void 0;
 var core_1 = require("@angular/core");
 var _dataObjects_1 = require("../../_dataObjects");
 var data_service_1 = require("../../_services/data-service");
 var detail_component_component_1 = require("../../_controls/detail-component.component");
-var _services_1 = require("../../_services");
-var ChangePasswordComponent = /** @class */ (function (_super) {
-    __extends(ChangePasswordComponent, _super);
-    function ChangePasswordComponent(_dataService, _authenticationService, Route) {
+var CreateAccountComponent = /** @class */ (function (_super) {
+    __extends(CreateAccountComponent, _super);
+    function CreateAccountComponent(_dataService, Route) {
         var _this = _super.call(this, Route) || this;
         _this._dataService = _dataService;
-        _this._authenticationService = _authenticationService;
         _this.Route = Route;
         _this.User = new _dataObjects_1.User;
         return _this;
     }
-    Object.defineProperty(ChangePasswordComponent.prototype, "User", {
+    Object.defineProperty(CreateAccountComponent.prototype, "User", {
         get: function () {
             return this.BusinessObject;
         },
@@ -50,28 +48,26 @@ var ChangePasswordComponent = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
-    ChangePasswordComponent.prototype.ngOnInit = function () {
-        this.BusinessObjectId = this._authenticationService.CurrentUserId;
+    CreateAccountComponent.prototype.ngOnInit = function () {
         this.Load();
     };
-    ChangePasswordComponent.prototype.GetData = function () {
+    CreateAccountComponent.prototype.LoadControlsData = function () {
         var _this = this;
-        var criteria = { "UserPK": this.BusinessObjectId };
+        var criteria = {};
         var dataRequest = new _dataObjects_1.DataRequest();
-        dataRequest.Procedure = "GetUsers";
+        dataRequest.Procedure = "GetSecurityQuestionTypes";
         dataRequest.Parameters = JSON.stringify(criteria);
-        this._dataService.ExecuteRequest(dataRequest)
+        this._dataService.NoAuthExecuteRequest(dataRequest)
             .subscribe(function (result) {
-            var resultSet = result;
-            if (resultSet && resultSet.length > 0) {
-                _this.User = resultSet[0];
-            }
+            _this.SecurityQuestionTypes = result;
         }, function (error) {
             console.error(error);
         });
     };
-    ChangePasswordComponent.prototype.ValidateSaveData = function () {
-        if (this.User.NewPassword != this.User.ConfirmPassword) {
+    CreateAccountComponent.prototype.CreateData = function () {
+    };
+    CreateAccountComponent.prototype.ValidateSaveData = function () {
+        if (this.User.Password != this.User.ConfirmPassword) {
             //Display error Passwords do not match
             //focus on NewPassword
             return false;
@@ -83,9 +79,9 @@ var ChangePasswordComponent = /** @class */ (function (_super) {
         }
         return true;
     };
-    ChangePasswordComponent.prototype.SaveData = function () {
+    CreateAccountComponent.prototype.SaveData = function () {
         var _this = this;
-        this._dataService.ChangePassword(this.User)
+        this._dataService.CreateAccount(this.User)
             .subscribe(function (result) {
             //check if return type is dataerror
             //create dataerror dataobject for internal validation error message
@@ -97,15 +93,14 @@ var ChangePasswordComponent = /** @class */ (function (_super) {
             console.error(error);
         });
     };
-    ChangePasswordComponent = __decorate([
+    CreateAccountComponent = __decorate([
         core_1.Component({
-            selector: 'app-change-password',
-            templateUrl: './change-password.component.html'
+            selector: 'app-create-account',
+            templateUrl: './create-account.component.html'
         }),
-        __param(0, core_1.Inject(data_service_1.DataService)),
-        __param(1, core_1.Inject(_services_1.AuthenticationService))
-    ], ChangePasswordComponent);
-    return ChangePasswordComponent;
+        __param(0, core_1.Inject(data_service_1.DataService))
+    ], CreateAccountComponent);
+    return CreateAccountComponent;
 }(detail_component_component_1.DetailComponent));
-exports.ChangePasswordComponent = ChangePasswordComponent;
-//# sourceMappingURL=change-password.component.js.map
+exports.CreateAccountComponent = CreateAccountComponent;
+//# sourceMappingURL=create-account.component.js.map

@@ -14,12 +14,10 @@ var core_1 = require("@angular/core");
 var login_information_1 = require("../../_dataObjects/login-information");
 var operators_1 = require("rxjs/operators");
 var _services_1 = require("../../_services");
-var data_service_1 = require("../../_services/data-service");
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(_router, _authenticationService, _dataService) {
+    function LoginComponent(_router, _authenticationService) {
         this._router = _router;
         this._authenticationService = _authenticationService;
-        this._dataService = _dataService;
     }
     LoginComponent.prototype.ngOnInit = function () {
         this.CreateData();
@@ -46,14 +44,15 @@ var LoginComponent = /** @class */ (function () {
         }
     };
     LoginComponent.prototype.CreateAccount = function () {
+        //Navigate to CreateAccount Component
+        this._router.navigate(['/create-account/']);
     };
     LoginComponent = __decorate([
         core_1.Component({
             selector: 'app-login',
             templateUrl: './login.component.html'
         }),
-        __param(1, core_1.Inject(_services_1.AuthenticationService)),
-        __param(2, core_1.Inject(data_service_1.DataService))
+        __param(1, core_1.Inject(_services_1.AuthenticationService))
     ], LoginComponent);
     return LoginComponent;
 }());

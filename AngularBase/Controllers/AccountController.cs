@@ -40,6 +40,47 @@ namespace AngularBase.Controllers
         }
 
         [AllowAnonymous]
+        public async Task<IActionResult> CreateAccount([FromBody] User model)
+        {
+            model.Password = _userService.HashPassword(model.Password);
+            model.ActivationCode = _userService.GenerateActivationCode();
+
+            string result = Dao.ExecuteProcedure(0, "CreateAccount", JsonSerializer.Serialize<User>(model));
+
+            //if (result == null)
+            //    return BadRequest(new { message = "Username or password is incorrect" });
+
+            // Send off an email or some shit on success -- Password has been changed.  If you did not request this password change blah blah 
+            User[] users = JsonSerializer.Deserialize<User[]>(result);
+            User user = null;
+
+            if (users != null && users.Length > 0)
+                user = users[0];
+
+            if (user == null)
+            {
+                return BadRequest(new { message = "Problems creating account" });
+            }
+
+            //Send e-mail here
+            MailRequest request = new();
+            request.ToEmail = user.Email;
+            request.Subject = "Activate Account";
+            request.Body = this._emailService.GetActivateAccountMailBody(user.UserPK, user.Username, user.ActivationCode);
+
+            try
+            {
+                await this._emailService.SendEmailAsync(request);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
+            return Ok(result);
+        }
+
+        [AllowAnonymous]
         public async Task<IActionResult> ResetPassword([FromBody] User model)
         {
             string newPassword = this._userService.GenerateRandomPassword();

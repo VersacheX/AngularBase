@@ -1,0 +1,15 @@
+.card {
+    margin: 0 auto !important;
+}
+
+@media (min-width: 640px) {
+  .login-card {
+      width: 480px;
+  }
+}
+
+@media (max-width: 639px) {
+  .login-card {
+    width: 100%;
+  }
+}

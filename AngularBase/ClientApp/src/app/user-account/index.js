@@ -11,8 +11,10 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./change-password/change-password.component"), exports);
-//export * from './create-account/create-account.component';
+__exportStar(require("./create-account/create-account.component"), exports);
 __exportStar(require("./login/login.component"), exports);
 __exportStar(require("./profile/profile.component"), exports);
 __exportStar(require("./reset-password/reset-password.component"), exports);
+__exportStar(require("./create-account/create-account.component"), exports);
+__exportStar(require("./activate-account/activate-account.component"), exports);
 //# sourceMappingURL=index.js.map

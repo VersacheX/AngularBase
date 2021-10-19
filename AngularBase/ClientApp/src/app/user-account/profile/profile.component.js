@@ -60,7 +60,7 @@ var ProfileComponent = /** @class */ (function (_super) {
         var dataRequest = new _dataObjects_1.DataRequest();
         dataRequest.Procedure = "GetSecurityQuestionTypes";
         dataRequest.Parameters = JSON.stringify(criteria);
-        this._dataService.ExecuteRequest(dataRequest)
+        this._dataService.NoAuthExecuteRequest(dataRequest)
             .subscribe(function (result) {
             _this.SecurityQuestionTypes = result;
         }, function (error) {

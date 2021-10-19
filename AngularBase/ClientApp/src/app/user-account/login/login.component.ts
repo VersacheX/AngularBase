@@ -13,9 +13,8 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit  {
   public LoginInformation: LoginInformation;
 
-  constructor(private _router: Router 
-    , @Inject(AuthenticationService) private _authenticationService: AuthenticationService
-    , @Inject(DataService) private _dataService: DataService) {
+  constructor(private _router: Router,
+              @Inject(AuthenticationService) private _authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
@@ -49,6 +48,7 @@ export class LoginComponent implements OnInit  {
   }
 
   CreateAccount() {
-
+    //Navigate to CreateAccount Component
+    this._router.navigate(['/create-account/']);
   }
 }

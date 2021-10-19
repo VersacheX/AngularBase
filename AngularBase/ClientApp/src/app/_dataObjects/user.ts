@@ -18,6 +18,8 @@ export class User {
   SecurityQuestionAnswer1: string;
   SecurityQuestionAnswer2: string;
 
+  ActivationCode: string;
+
   //Properties
   NewPassword: string;
   ConfirmPassword: string;

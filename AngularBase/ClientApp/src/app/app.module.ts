@@ -13,8 +13,9 @@ import { HeaderBarComponent } from './layout/header-bar/header-bar.component';
 import {  LoginComponent,
           ProfileComponent,
           ChangePasswordComponent,
-          /*CreateAccountComponent,*/
-          ResetPasswordComponent
+          CreateAccountComponent,
+          ResetPasswordComponent,
+          ActivateAccountComponent
         } from './user-account';
 
 import { HomeComponent } from './pages/home/home.component';
@@ -30,8 +31,9 @@ import { FetchDataComponent } from './pages/fetch-data/fetch-data.component';
     LoginComponent,
     ProfileComponent,
     ChangePasswordComponent,
-    //CreateAccountComponent,
+    CreateAccountComponent,
     ResetPasswordComponent,
+    ActivateAccountComponent,
 
     HomeComponent,
     CounterComponent,
@@ -45,11 +47,12 @@ import { FetchDataComponent } from './pages/fetch-data/fetch-data.component';
       { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
       { path: 'counter', component: CounterComponent, canActivate: [AuthGuard] },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthGuard] },
+      { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+      { path: 'change-password', component: ChangePasswordComponent, canActivate: [AuthGuard] },
       { path: 'login', component: LoginComponent },
-      { path: 'profile', component: ProfileComponent },
-      { path: 'change-password', component: ChangePasswordComponent },
-      //{ path: 'create-account', component: CreateAccountComponent },
+      { path: 'create-account', component: CreateAccountComponent },
       { path: 'reset-password/:username', component: ResetPasswordComponent },
+      { path: 'activate-account/:activationcode', component: ActivateAccountComponent },
     ])
   ],
   //exports: [

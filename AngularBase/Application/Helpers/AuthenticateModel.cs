@@ -32,6 +32,8 @@ namespace AngularBase.Application.Helpers
         public string Password { get; set; }
         public string NewPassword { get; set; }
 
+        public int SecurityQuestionType1FK { get; set; }
+        public int SecurityQuestionType2FK { get; set; }
         public string SecurityQuestionDescription1 { get; set; }
         public string SecurityQuestionDescription2 { get; set; }
         public string SecurityQuestionAnswer1 { get; set; }
