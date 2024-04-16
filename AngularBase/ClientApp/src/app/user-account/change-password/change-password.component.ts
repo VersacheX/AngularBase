@@ -76,11 +76,11 @@ export class ChangePasswordComponent extends DetailComponent implements OnInit  
         result => {
           //check if return type is dataerror
           //create dataerror dataobject for internal validation error message
-          let resultSet: User[] = result as User[];
+          //let resultSet: User[] = result as User;
 
-          if (resultSet && resultSet.length > 0) {
-            this.User = resultSet[0];
-          }
+          //if (resultSet && resultSet.length > 0) {
+            this.User = result as User;//resultSet[0];
+          //}
         },
         error => {
           console.error(error)

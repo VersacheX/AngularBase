@@ -32,22 +32,35 @@ namespace AngularBase.Controllers
 
             string result = Dao.ExecuteProcedure((int)userId, "ChangePassword", JsonSerializer.Serialize<User>(model));
 
+            User user = null;
+
+            try
+            {
+                User[] users = JsonSerializer.Deserialize<User[]>(result);
+
+                if (users != null && users.Length > 0)
+                    user = users[0];
+            }
+            catch (Exception ex)
+            {
+
+            }
             //if (result == null)
             //    return BadRequest(new { message = "Username or password is incorrect" });
 
             // Send off an email or some shit on success -- Password has been changed.  If you did not request this password change blah blah 
-            return Ok(result);
+            return Ok(user);
         }
 
         [AllowAnonymous]
         public async Task<IActionResult> ActivateAccount([FromBody] User model)
         {
-            string result = Dao.ExecuteProcedure(0, "ActivateAccount", JsonSerializer.Serialize<User>(model));
+            string result = Dao.NoAuthExecuteProcedure("no_auth_ActivateAccount", JsonSerializer.Serialize<User>(model));
 
             //if (result == null)
-            //    return BadRequest(new { message = "Username or password is incorrect" });
+            //    return BadRequest(new { message = "Activation Fail" });
 
-            // Send off an email or some shit on success -- Password has been changed.  If you did not request this password change blah blah 
+            // Send off an email or some shit on success -- Your account has been activated. Welcome to blah blah
 
 
             User user = null;
@@ -84,7 +97,7 @@ namespace AngularBase.Controllers
                 return BadRequest(new { message = ex.Message });
             }
 
-            return Ok(result);
+            return Ok(user);
         }
 
         [AllowAnonymous]
@@ -93,7 +106,7 @@ namespace AngularBase.Controllers
             model.Password = _userService.HashPassword(model.Password);
             model.ActivationCode = _userService.GenerateActivationCode();
 
-            string result = Dao.ExecuteProcedure(0, "CreateAccount", JsonSerializer.Serialize<User>(model));
+            string result = Dao.NoAuthExecuteProcedure("no_auth_CreateAccount", JsonSerializer.Serialize<User>(model));
 
             //if (result == null)
             //    return BadRequest(new { message = "Username or password is incorrect" });
@@ -125,7 +138,7 @@ namespace AngularBase.Controllers
                 return BadRequest(new { message = ex.Message });
             }
 
-            return Ok(result);
+            return Ok(user);
         }
 
         [AllowAnonymous]
@@ -135,7 +148,7 @@ namespace AngularBase.Controllers
 
             model.Password = _userService.HashPassword(newPassword);
 
-            string result = Dao.ExecuteProcedure(0, "ResetPassword", JsonSerializer.Serialize<User>(model));
+            string result = Dao.NoAuthExecuteProcedure("no_auth_ResetPassword", JsonSerializer.Serialize<User>(model));
             //If passwordReset Successful  ---  This username must exist with 2 security questions
 
             if (result == null)
@@ -167,13 +180,13 @@ namespace AngularBase.Controllers
                 return BadRequest(new { message = ex.Message });
             }
 
-            return Ok(result);
+            return Ok(user);
         }
 
         [AllowAnonymous]
         public IActionResult GetSecurityQuestions([FromBody] User model)
-        { 
-            string result = Dao.ExecuteProcedure(0, "GetSecurityQuestions", JsonSerializer.Serialize<User>(model));
+        {
+            string result = Dao.NoAuthExecuteProcedure("no_auth_GetSecurityQuestions", JsonSerializer.Serialize<User>(model));
 
             if (result == null)
                 return BadRequest(new { message = "Username or password is incorrect" });

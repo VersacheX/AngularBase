@@ -13,6 +13,7 @@ namespace AngularBase
     {
         public static void Main(string[] args)
         {
+            string hash = new Application.Services.UserService().HashPassword("Password!");
             CreateHostBuilder(args).Build().Run();
         }
 

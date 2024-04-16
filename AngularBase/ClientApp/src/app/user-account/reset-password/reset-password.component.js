@@ -32,10 +32,7 @@ var ResetPasswordComponent = /** @class */ (function () {
         if (this.User.Username && this.User.Username.trim().length > 0) {
             this._dataService.GetUserSecurityQuestions(this.User)
                 .subscribe(function (result) {
-                var resultSet = result;
-                if (resultSet && resultSet.length > 0) {
-                    _this.User = resultSet[0];
-                }
+                _this.User = result;
             }, function (error) {
                 console.error(error);
             });
@@ -48,11 +45,11 @@ var ResetPasswordComponent = /** @class */ (function () {
         var _this = this;
         this._dataService.ResetPassword(this.User)
             .subscribe(function (result) {
-            var resultSet = result;
-            if (resultSet && resultSet.length > 0) {
-                //Display Message "A temporary password has been sent to the e-mail on file"
-                _this.User = resultSet[0];
-            }
+            //let resultSet: User = ;
+            //if (resultSet && resultSet.length > 0) {
+            //Display Message "A temporary password has been sent to the e-mail on file"
+            _this.User = result; //resultSet[0] as User;
+            //}
         }, function (error) {
             console.error(error);
         });

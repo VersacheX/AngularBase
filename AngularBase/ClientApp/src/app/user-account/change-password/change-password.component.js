@@ -89,10 +89,10 @@ var ChangePasswordComponent = /** @class */ (function (_super) {
             .subscribe(function (result) {
             //check if return type is dataerror
             //create dataerror dataobject for internal validation error message
-            var resultSet = result;
-            if (resultSet && resultSet.length > 0) {
-                _this.User = resultSet[0];
-            }
+            //let resultSet: User[] = result as User;
+            //if (resultSet && resultSet.length > 0) {
+            _this.User = result; //resultSet[0];
+            //}
         }, function (error) {
             console.error(error);
         });

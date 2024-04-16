@@ -28,35 +28,35 @@ export class DataService {
   }
 
   ChangePassword(userInfo: User) {
-    return this._http.post<User[]>(this._baseUrl + 'Account/ChangePassword', userInfo)
+    return this._http.post<User>(this._baseUrl + 'Account/ChangePassword', userInfo)
       .pipe(map(user => {
         return user;
       }));
   }
 
   ResetPassword(userInfo: User) {
-    return this._http.post<User[]>(this._baseUrl + 'Account/ResetPassword', userInfo)
+    return this._http.post<User>(this._baseUrl + 'Account/ResetPassword', userInfo)
       .pipe(map(user => {
         return user;
       }));
   }
 
   CreateAccount(userInfo: User) {
-    return this._http.post<User[]>(this._baseUrl + 'Account/CreateAccount', userInfo)
+    return this._http.post<User>(this._baseUrl + 'Account/CreateAccount', userInfo)
       .pipe(map(user => {
         return user;
       }));
   }
 
   ActivateAccount(userInfo: User) {
-    return this._http.post<User[]>(this._baseUrl + 'Account/ActivateAccount', userInfo)
+    return this._http.post<User>(this._baseUrl + 'Account/ActivateAccount', userInfo)
       .pipe(map(user => {
         return user;
       }));
   }
 
   GetUserSecurityQuestions(userInfo: User) {
-    return this._http.post<User[]>(this._baseUrl + 'Account/GetSecurityQuestions', userInfo)
+    return this._http.post<User>(this._baseUrl + 'Account/GetSecurityQuestions', userInfo)
       .pipe(map(user => {
         return user;
       }));

@@ -32,11 +32,7 @@ export class ResetPasswordComponent implements OnInit  {
       this._dataService.GetUserSecurityQuestions(this.User)
         .subscribe(
           result => {
-            let resultSet: User[] = result as User[];
-
-            if (resultSet && resultSet.length > 0) {
-              this.User = resultSet[0] as User;
-            }
+            this.User = result as User;
           },
           error => {
             console.error(error)
@@ -51,12 +47,12 @@ export class ResetPasswordComponent implements OnInit  {
     this._dataService.ResetPassword(this.User)
       .subscribe(
         result => {
-          let resultSet: User[] = result as User[];
+          //let resultSet: User = ;
 
-          if (resultSet && resultSet.length > 0) {
+          //if (resultSet && resultSet.length > 0) {
             //Display Message "A temporary password has been sent to the e-mail on file"
-            this.User = resultSet[0] as User;
-          }
+            this.User = result as User;//resultSet[0] as User;
+          //}
         },
         error => {
           console.error(error)

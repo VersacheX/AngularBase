@@ -9,8 +9,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthGuard = void 0;
 var core_1 = require("@angular/core");
 var AuthGuard = /** @class */ (function () {
-    function AuthGuard(router, _authenticationService) {
-        this.router = router;
+    function AuthGuard(_router, _authenticationService) {
+        this._router = _router;
         this._authenticationService = _authenticationService;
     }
     AuthGuard.prototype.canActivate = function (route, state) {
@@ -20,7 +20,7 @@ var AuthGuard = /** @class */ (function () {
             return true;
         }
         // not logged in so redirect to login page with the return url
-        this.router.navigate(['/login']); //, { queryParams: { returnUrl: state.url } });
+        this._router.navigate(['/login']); //, { queryParams: { returnUrl: state.url } });
         return false;
     };
     AuthGuard = __decorate([

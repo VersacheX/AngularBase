@@ -19,7 +19,7 @@ namespace AngularBase.Application
             string connectionString = ApplicationSettings.ConnectionString;            //TODO ApplicationSettings.ConnectionString
             using (SqlConnection connection = new(connectionString))
             {
-                string sql = "EXEC AuthenticateUser @username,@password;";
+                string sql = "EXEC no_auth_AuthenticateUser @username,@password;";
 
                 connection.Open();
                 try

@@ -17,7 +17,6 @@ namespace AngularBase.Application.Helpers
             ApplicationName = configuration.GetValue<string>("ApplicationSettings:ApplicationName");
             ConnectionString = configuration.GetValue<string>("ApplicationSettings:ConnectionString");
             ClientId = configuration.GetValue<string>("ApplicationSettings:ClientId");
-            //ClientSecret = configuration.GetValue<string>("ApplicationSettings:ClientSecret");
             Domain = configuration.GetValue<string>("ApplicationSettings:Domain");
 
         }
