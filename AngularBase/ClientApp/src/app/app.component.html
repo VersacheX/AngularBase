@@ -2,8 +2,8 @@
   <!-- Sidebar  -->
   <app-nav-menu #navMenu *ngIf="_authenticationService.IsLoggedIn"></app-nav-menu>    
   <!-- Page Content  -->
-  <div id="main-panel" [ngClass]="(_navigationMenu && _navigationMenu.SideBarOpen ? 'sideBarOpen' : '') +
-                                  (!_navigationMenu ? 'loggedOutPage' : '')
+  <div id="main-panel" [ngClass]="(_authenticationService.IsLoggedIn && _navigationMenu?.SideBarOpen ? 'sideBarOpen' : '') +
+                                  (!_authenticationService.IsLoggedIn ? 'loggedOutPage' : '')
                                   ">
     <!--HEADER BAR-->
     <app-header-bar *ngIf="_authenticationService.IsLoggedIn"></app-header-bar>
